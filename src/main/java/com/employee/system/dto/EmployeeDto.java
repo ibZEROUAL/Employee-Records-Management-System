@@ -1,41 +1,25 @@
-package com.employee.system.model;
+package com.employee.system.dto;
 
 import com.employee.system.enums.EmploymentStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Employee {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class EmployeeDto implements Serializable {
+    private Long employeeId;
     private String fullName;
-
     private String jobTitle;
-
     private String department;
-
     private LocalDate hireDate;
-
     private EmploymentStatus employmentStatus;
-
     private String contactInfo;
-
     private String address;
-
-
 }

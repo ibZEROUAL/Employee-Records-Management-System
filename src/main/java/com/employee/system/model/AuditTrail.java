@@ -1,10 +1,7 @@
 package com.employee.system.model;
 
 import com.employee.system.enums.Action;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +20,15 @@ public class AuditTrail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long employeeId;
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
 
     private Action action;
 
-    private String modifiedBy;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User modifiedBy;
 
     private LocalDateTime modifiedAt;
 

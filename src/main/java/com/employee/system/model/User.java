@@ -25,6 +25,6 @@ public class User {
 
     private String password;
 
-    private Role role; // e.g., HR, Manager, Admin
+    private Role role;
 
 }
