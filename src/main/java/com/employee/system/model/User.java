@@ -13,7 +13,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Entity
 public class User {
 

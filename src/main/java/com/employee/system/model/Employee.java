@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Employee {
 
