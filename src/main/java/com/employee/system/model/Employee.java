@@ -27,6 +27,7 @@ public class Employee {
 
     private LocalDate hireDate;
 
+    @Enumerated(EnumType.STRING)
     private EmploymentStatus employmentStatus;
 
     private String contactInfo;
