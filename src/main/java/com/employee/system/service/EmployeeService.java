@@ -23,6 +23,8 @@ public class EmployeeService {
     }
 
     public List<EmployeeDto> getAll(){
+        System.out.println("//////////////");
+        employeeRepository.findAll().forEach(System.out::println);
         return employeeMapper.toDtoList(employeeRepository.findAll());
     }
 

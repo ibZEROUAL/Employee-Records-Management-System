@@ -3,7 +3,6 @@ package com.employee.system.model;
 import com.employee.system.enums.Action;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -13,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @RequiredArgsConstructor
 @Entity
+@Table(name = "audit_trail")
 public class AuditTrail {
 
     @Id
