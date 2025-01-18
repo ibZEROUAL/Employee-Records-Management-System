@@ -1,6 +1,7 @@
 package com.employee.system.model;
 
 import com.employee.system.enums.EmploymentStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,7 @@ public class Employee {
 
     private String address;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<AuditTrail> auditTrails = new HashSet<>() ;
 

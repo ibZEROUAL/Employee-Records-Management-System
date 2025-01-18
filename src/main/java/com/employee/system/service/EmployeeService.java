@@ -2,6 +2,7 @@ package com.employee.system.service;
 
 import com.employee.system.dto.EmployeeDto;
 import com.employee.system.enums.Action;
+import com.employee.system.enums.EmploymentStatus;
 import com.employee.system.exception.EmployeeNotFoundException;
 import com.employee.system.mapper.EmployeeMapper;
 import com.employee.system.repository.EmployeeRepository;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -54,4 +56,26 @@ public class EmployeeService {
     }
 
 
+    public List<EmployeeDto> searchEmployee(String id, String name, String department, String jobTitle) {
+
+        if (id != null) {
+            return List.of(getById(Long.valueOf(id)));
+        } else if (name != null) {
+            return employeeMapper.toDtoList(employeeRepository.findEmployeesByFullName(name));
+        } else if (department != null) {
+            return employeeMapper.toDtoList(employeeRepository.findEmployeesByDepartment(department));
+        } else if (jobTitle != null) {
+            return employeeMapper.toDtoList(employeeRepository.findEmployeesByJobTitle(jobTitle));
+        }else
+
+        return List.of();
+    }
+
+    public List<EmployeeDto> filterEmployees(String status, String department, LocalDate hireDate) {
+        EmploymentStatus employmentStatus = null;
+        if (status != null) {
+            employmentStatus = EmploymentStatus.valueOf(status);
+        }
+        return employeeMapper.toDtoList(employeeRepository.filterEmployees(employmentStatus, department, hireDate));
+    }
 }

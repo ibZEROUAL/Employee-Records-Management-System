@@ -5,9 +5,11 @@ import com.employee.system.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -23,6 +25,25 @@ public class EmployeeController {
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable String id){
         return ResponseEntity.ok(employeeService.getById(Long.valueOf(id)));
+    }
+
+    @GetMapping("/search")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<List<EmployeeDto>> getEmployeeById(@RequestParam(required = false) String id,
+                                                       @RequestParam(required = false) String name,
+                                                       @RequestParam(required = false) String department,
+                                                       @RequestParam(required = false) String jobTitle){
+        return ResponseEntity.ok(employeeService.searchEmployee(id, name, department, jobTitle));
+    }
+
+    @GetMapping("/filter")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<List<EmployeeDto>> filterEmployees(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String department,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hireDate) {
+
+        return ResponseEntity.ok(employeeService.filterEmployees(status, department, hireDate));
     }
 
     @GetMapping
@@ -49,5 +70,8 @@ public class EmployeeController {
     public void deleteEmployee(@PathVariable String id){
         employeeService.deleteEmployee(Long.valueOf(id));
     }
+
+
+
 
 }
