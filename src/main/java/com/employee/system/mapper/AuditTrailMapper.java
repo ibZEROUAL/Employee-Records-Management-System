@@ -10,13 +10,11 @@ import java.util.List;
 public interface AuditTrailMapper {
 
     List<AuditTrail> toEntity(List<AuditTrailDto> auditTrailDto);
+
     AuditTrail toEntity(AuditTrailDto auditTrailDto);
 
     List<AuditTrailDto> toDto(List<AuditTrail> auditTrail);
+
     AuditTrailDto toDto(AuditTrail auditTrail);
 
-
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    AuditTrail partialUpdate(AuditTrailDto auditTrailDto, @MappingTarget AuditTrail auditTrail);
 }

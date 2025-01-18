@@ -8,6 +8,7 @@ import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper {
+
     List<User> toEntity(List<UserDto> userDto);
     User toEntity(UserDto userDto);
 

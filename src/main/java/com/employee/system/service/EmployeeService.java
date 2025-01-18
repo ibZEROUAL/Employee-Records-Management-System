@@ -1,25 +1,32 @@
 package com.employee.system.service;
 
 import com.employee.system.dto.EmployeeDto;
+import com.employee.system.enums.Action;
 import com.employee.system.exception.EmployeeNotFoundException;
 import com.employee.system.mapper.EmployeeMapper;
 import com.employee.system.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class EmployeeService {
 
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
-    private EmployeeMapper employeeMapper;
+    private final EmployeeMapper employeeMapper;
+
+    private final AuditTrailService auditTrailService;
+
+
 
     public EmployeeDto getById(Long id) {
         var employee = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
-        return employeeMapper.toDto(employee);
+        return employeeMapper.toDto(employeeRepository.save(employee));
     }
 
     public List<EmployeeDto> getAll(){
@@ -28,18 +35,22 @@ public class EmployeeService {
 
     public EmployeeDto addEmployee(EmployeeDto dto){
         var employee = employeeMapper.toEntity(dto);
-        return employeeMapper.toDto(employeeRepository.save(employee));
+        var savedEmployee = employeeRepository.save(employee);
+        auditTrailService.saveLogAction(savedEmployee, Action.CREATED);
+        return employeeMapper.toDto(savedEmployee);
     }
 
     public EmployeeDto updateEmployee(Long id, EmployeeDto dto){
         var employee = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
         var updatedEmployee = employeeMapper.partialUpdate(dto,employee);
-        return employeeMapper.toDto(employeeRepository.save(updatedEmployee));
+        auditTrailService.saveLogAction(updatedEmployee, Action.UPDATED);
+        return employeeMapper.toDto(updatedEmployee);
     }
 
     public void deleteEmployee(Long id){
-        employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
-        employeeRepository.deleteById(id);
+       var employee = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
+        auditTrailService.saveLogAction(employee, Action.DELETED);
+        employeeRepository.delete(employee);
     }
 
 

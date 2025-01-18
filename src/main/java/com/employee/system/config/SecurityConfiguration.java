@@ -1,10 +1,8 @@
 package com.employee.system.config;
 
-import com.employee.system.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,13 +28,13 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests( request -> request
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/employee/**").hasAnyAuthority(Role.HR.name(),Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.PUT, "/api/employee/**").hasAnyAuthority(Role.HR.name(),Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.DELETE, "/api/employee/**").hasAnyAuthority(Role.HR.name(),Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.GET, "/api/employee/**").hasAnyAuthority(Role.HR.name(),Role.ADMIN.name())
+                      //  .requestMatchers(HttpMethod.POST, "/api/employee/**").hasAnyAuthority(Role.HR.name(),Role.ADMIN.name())
+                      //  .requestMatchers(HttpMethod.PUT, "/api/employee/**").hasAnyAuthority(Role.HR.name(),Role.ADMIN.name())
+                      //  .requestMatchers(HttpMethod.DELETE, "/api/employee/**").hasAnyAuthority(Role.HR.name(),Role.ADMIN.name())
+                      //  .requestMatchers(HttpMethod.GET, "/api/employee/**").hasAnyAuthority(Role.HR.name(),Role.ADMIN.name())
 
-                        .requestMatchers(HttpMethod.PUT, "/api/employee/**").hasAnyAuthority(Role.MANAGER.name(),Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.GET, "/api/employee/**").hasAnyAuthority(Role.MANAGER.name(),Role.ADMIN.name())
+                      //  .requestMatchers(HttpMethod.PUT, "/api/employee/**").hasAnyAuthority(Role.MANAGER.name(),Role.ADMIN.name())
+                      //  .requestMatchers(HttpMethod.GET, "/api/employee/**").hasAnyAuthority(Role.MANAGER.name(),Role.ADMIN.name())
 
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/**").permitAll()

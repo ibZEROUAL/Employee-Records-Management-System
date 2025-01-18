@@ -18,18 +18,19 @@ import java.time.LocalDateTime;
 public class AuditTrail {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "audit_trail_seq_gen")
+    @SequenceGenerator(name = "audit_trail_seq_gen", sequenceName = "audit_trail_seq", allocationSize = 1)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @Enumerated(EnumType.STRING)
     private Action action;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User modifiedBy;
 
     private LocalDateTime modifiedAt;

@@ -12,6 +12,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class UserDto implements Serializable {
     Long id;
+
     String username;
+
     Role role;
 }
