@@ -37,7 +37,7 @@ public class ExportUtil {
         titleCell.setCellStyle(metadataStyle);
         Row row3 = sheet.createRow(3);
         Cell dateCell = row3.createCell(0);
-        dateCell.setCellValue("Exporté le " + new SimpleDateFormat("dd-MM-yyyy à HH:mm").format(new Date()));
+        dateCell.setCellValue("Exported at " + new SimpleDateFormat("dd-MM-yyyy -- HH:mm").format(new Date()));
         dateCell.setCellStyle(metadataStyle);
         sheet.createRow(4).createCell(0).setCellStyle(metadataStyle);
         if(headersCount!=1) {

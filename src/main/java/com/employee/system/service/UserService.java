@@ -1,6 +1,7 @@
 package com.employee.system.service;
 
 import com.employee.system.dto.UserDto;
+import com.employee.system.enums.Role;
 import com.employee.system.exception.UserNotFoundException;
 import com.employee.system.mapper.UserMapper;
 import com.employee.system.repository.UserRepository;
@@ -25,6 +26,11 @@ public class UserService {
     public List<UserDto> getAll(){
         return userMapper.toDto(userRepository.findAll());
     }
+
+    public List<UserDto> getUsersByRole(String role) {
+        return userMapper.toDto(userRepository.findAllByRole(Role.valueOf(role)));
+    }
+
 
     public UserDto addUser(UserDto dto){
         var user = userMapper.toEntity(dto);

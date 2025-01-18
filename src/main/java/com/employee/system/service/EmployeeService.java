@@ -63,7 +63,7 @@ public class EmployeeService {
         } else if (name != null) {
             return employeeMapper.toDtoList(employeeRepository.findEmployeesByFullName(name));
         } else if (department != null) {
-            return employeeMapper.toDtoList(employeeRepository.findEmployeesByDepartment(department));
+            return employeeMapper.toDtoList(employeeRepository.findEmployeesByDepartment_DepartmentName(department));
         } else if (jobTitle != null) {
             return employeeMapper.toDtoList(employeeRepository.findEmployeesByJobTitle(jobTitle));
         }else

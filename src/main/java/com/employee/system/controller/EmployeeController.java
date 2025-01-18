@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -60,6 +61,7 @@ public class EmployeeController {
 
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     @PutMapping("/{id}")
+    @PreAuthorize("@employeeSecurity.isManagerOfDepartment(authentication, #id)")
     public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto dto, @PathVariable String id){
         var employeeDto = employeeService.updateEmployee(Long.valueOf(id),dto);
         return ResponseEntity.ok(employeeDto);

@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -27,8 +26,6 @@ public class Employee {
 
     private String jobTitle;
 
-    private String department;
-
     private LocalDate hireDate;
 
     @Enumerated(EnumType.STRING)
@@ -39,8 +36,12 @@ public class Employee {
     private String address;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<AuditTrail> auditTrails = new HashSet<>() ;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<AuditTrail> auditTrails;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
 
 }

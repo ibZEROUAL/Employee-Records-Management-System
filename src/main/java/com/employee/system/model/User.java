@@ -23,12 +23,18 @@ public class User implements UserDetails {
     @SequenceGenerator(name = "user_seq_gen", sequenceName = "user_seq", allocationSize = 1)
     private Long id;
 
+    private String fullName;
+
     private String username;
 
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
