@@ -9,4 +9,5 @@ public interface AuditTrailRepository extends JpaRepository<AuditTrail, Long> {
 
     List<AuditTrail> getAuditTrailsByEmployeeId(Long employeeId);
 
+    void deleteAuditTrailsByEmployee_Id(Long employeeId);
 }

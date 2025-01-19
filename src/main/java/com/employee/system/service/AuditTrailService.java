@@ -23,6 +23,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayInputStream;
@@ -52,6 +53,8 @@ public class AuditTrailService {
         return auditTrailMapper.toDto(auditTrailRepository.getAuditTrailsByEmployeeId(employeeId));
     }
 
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void saveLogAction(Employee employee, Action action){
         String modifiedBy = getAuthenticatedUsername();
         User user = userRepository.findByUsername(modifiedBy).orElseThrow(UserNotFoundException::new);
@@ -67,6 +70,10 @@ public class AuditTrailService {
         } else {
             return principal.toString();
         }
+    }
+
+    public void deleteLogsByEmployeeId(Long employeeId){
+        auditTrailRepository.deleteAuditTrailsByEmployee_Id(employeeId);
     }
 
 

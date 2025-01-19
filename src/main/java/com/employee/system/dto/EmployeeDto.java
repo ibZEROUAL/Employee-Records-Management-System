@@ -1,7 +1,7 @@
 package com.employee.system.dto;
 
+import com.employee.system.enums.Department;
 import com.employee.system.enums.EmploymentStatus;
-import com.employee.system.model.Department;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,10 +19,6 @@ public class EmployeeDto implements Serializable {
 
     @Null(message = "ID should be null for new employees")
     private Long id;
-
-    @NotBlank
-    @Email(message = "Username must be a valid email address")
-    private String username;
 
     @NotBlank
     private String fullName;

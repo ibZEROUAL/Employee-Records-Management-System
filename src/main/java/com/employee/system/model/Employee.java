@@ -1,5 +1,6 @@
 package com.employee.system.model;
 
+import com.employee.system.enums.Department;
 import com.employee.system.enums.EmploymentStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -36,11 +37,10 @@ public class Employee {
     private String address;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<AuditTrail> auditTrails;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id")
+    @Enumerated(EnumType.STRING)
     private Department department;
 
 

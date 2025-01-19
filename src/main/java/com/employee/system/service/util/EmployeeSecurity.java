@@ -1,8 +1,8 @@
 package com.employee.system.service.util;
 
+import com.employee.system.enums.Department;
 import com.employee.system.exception.EmployeeNotFoundException;
 import com.employee.system.exception.UserNotFoundException;
-import com.employee.system.model.Department;
 import com.employee.system.model.Employee;
 import com.employee.system.model.User;
 import com.employee.system.repository.EmployeeRepository;

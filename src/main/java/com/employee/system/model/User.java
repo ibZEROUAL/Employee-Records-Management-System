@@ -1,5 +1,6 @@
 package com.employee.system.model;
 
+import com.employee.system.enums.Department;
 import com.employee.system.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,8 +33,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id")
+
+    @Enumerated(EnumType.STRING)
     private Department department;
 
     @Override

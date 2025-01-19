@@ -2,6 +2,7 @@ package com.employee.system.service;
 
 import com.employee.system.dto.EmployeeDto;
 import com.employee.system.enums.Action;
+import com.employee.system.enums.Department;
 import com.employee.system.enums.EmploymentStatus;
 import com.employee.system.exception.EmployeeNotFoundException;
 import com.employee.system.mapper.EmployeeMapper;
@@ -23,7 +24,6 @@ public class EmployeeService {
     private final EmployeeMapper employeeMapper;
 
     private final AuditTrailService auditTrailService;
-
 
 
     public EmployeeDto getById(Long id) {
@@ -52,6 +52,7 @@ public class EmployeeService {
     public void deleteEmployee(Long id){
        var employee = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
         auditTrailService.saveLogAction(employee, Action.DELETED);
+        auditTrailService.deleteLogsByEmployeeId(employee.getId());
         employeeRepository.delete(employee);
     }
 
@@ -63,7 +64,7 @@ public class EmployeeService {
         } else if (name != null) {
             return employeeMapper.toDtoList(employeeRepository.findEmployeesByFullName(name));
         } else if (department != null) {
-            return employeeMapper.toDtoList(employeeRepository.findEmployeesByDepartment_DepartmentName(department));
+            return employeeMapper.toDtoList(employeeRepository.findEmployeesByDepartment(Department.valueOf(department)));
         } else if (jobTitle != null) {
             return employeeMapper.toDtoList(employeeRepository.findEmployeesByJobTitle(jobTitle));
         }else
